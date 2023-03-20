@@ -8,27 +8,28 @@ print("Your Path is : " + targetedPath)
 fileName = input("CSV file name: ")
 print("CSV file name is : " + fileName)
 
+
 for x in os.listdir(targetedPath):
     if x.endswith(".xmodel_export"):
         f = open(""f"{fileName}.csv", "a")
-        f.write("xmodel," + x + "\n")
+        f.write("xmodel," + x.split('.')[0] + "\n")
         f.close()
-        print(x)
+        print(x.split('.')[0])
     elif x.endswith(".xanim_export"):
         f = open(""f"{fileName}.csv", "a")
-        f.write("xanim," + x + "\n")
+        f.write("xanim," + x.split('.')[0] + "\n")
         f.close()
-        print(x)
+        print(x.split('.')[0])
     elif x.endswith(".json"):
         f = open(""f"{fileName}.csv", "a")
-        f.write("material," + x + "\n")
+        f.write("material," + x.split('.')[0] + "\n")
         f.close()
-        print(x)
+        print(x.split('.')[0])
     elif x.startswith("hud"):
         f = open(""f"{fileName}.csv", "a")
-        f.write("material," + x + "\n")
+        f.write("material," + x.split('.')[0] + "\n")
         f.close()
-        print(x)
+        print(x.split('.')[0])
 
 current_dateTime = datetime.now()
 print("Finished!...")

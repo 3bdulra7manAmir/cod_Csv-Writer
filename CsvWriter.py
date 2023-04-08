@@ -1,4 +1,3 @@
-#  reads directory files names and store it without extension then write the result into a file called temp.txt
 import os
 from datetime import datetime
 import time

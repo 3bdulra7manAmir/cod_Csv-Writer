@@ -13,7 +13,7 @@ programName = "C:\\Program Files (x86)\\Notepad++\\notepad++.exe"
 com = os.listdir(targetedPath)
 counter = 0
 
-for x in os.listdir(targetedPath):
+for x in os.listdir(targetedPath): # Xmodel
     if x.endswith(".xmodel_export"):
         f = open(""f"{fileName}.csv", "a")
         f.write("xmodel," + x.split('.')[0] + "\n")
@@ -23,7 +23,7 @@ for x in os.listdir(targetedPath):
         if counter == len(com):
             sp.Popen([programName, f"{fileName}.csv"])
 
-    elif x.endswith(".xanim_export"):
+    elif x.endswith(".xanim_export"): # Xanim
         f = open(""f"{fileName}.csv", "a")
         f.write("xanim," + x.split('.')[0] + "\n")
         f.close()
@@ -32,7 +32,7 @@ for x in os.listdir(targetedPath):
         if counter == len(com):
             sp.Popen([programName, f"{fileName}.csv"])
 
-    elif x.endswith(".json"):
+    elif x.endswith(".json"): # mostly WEAPONS files depends on The dir
         f = open(""f"{fileName}.csv", "a")
         f.write("weapon," + x.split('.')[0] + "\n")
         f.close()
@@ -41,7 +41,7 @@ for x in os.listdir(targetedPath):
         if counter == len(com):
             sp.Popen([programName, f"{fileName}.csv"])
 
-    elif x.startswith("hud_icon"):
+    elif x.startswith("hud_icon"): # WEAPONS_icons Materials
         f = open(""f"{fileName}.csv", "a")
         f.write("material," + x.split('.')[0] + "\n")
         f.close()
@@ -50,38 +50,38 @@ for x in os.listdir(targetedPath):
         if counter == len(com):
             sp.Popen([programName, f"{fileName}.csv"])
 
-    elif x.endswith(".techset"):  # .techset
+    elif x.endswith(".json"): #  mostly Materials depends on The dir
         f = open(""f"{fileName}.csv", "a")
-        f.write("techset," + x.split('.')[0] + "\n")
+        f.write("material," + x.split('.')[0] + "\n")
         f.close()
         print(x.split('.')[0])
         counter = counter + 1
         if counter == len(com):
             sp.Popen([programName, f"{fileName}.csv"])
 
-    elif x.endswith(".technique"):  # .technique
+    elif x.endswith(".iwi"):  # iwi
         f = open(""f"{fileName}.csv", "a")
-        f.write("technique," + x.split('.')[0] + "\n")
+        f.write("image," + x.split('.')[0] + "\n")
+        f.close()
+        print(x.split('.')[0])
+        counter = counter + 1
+        if counter == len(com):
+            sp.Popen([programName, f"{fileName}.csv"])
+    
+    elif x.endswith(".dds"):  # dds
+        f = open(""f"{fileName}.csv", "a")
+        f.write("image,," + x.split('.')[0] + "\n")
         f.close()
         print(x.split('.')[0])
         counter = counter + 1
         if counter == len(com):
             sp.Popen([programName, f"{fileName}.csv"])
 
-    elif x.endswith(".vertexshader"):  # .vertexshader
+    elif x.endswith(".h1Image"):  # h1Image
         f = open(""f"{fileName}.csv", "a")
-        f.write("vertexshader," + x.split('.')[0] + "\n")
+        f.write("image," + x.split('.')[0] + "\n")
         f.close()
-        print(x.split('.')[0])
-        counter = counter + 1
-        if counter == len(com):
-            sp.Popen([programName, f"{fileName}.csv"])
-
-    elif x.endswith(".pixelshader"):  # pixelshade
-        f = open(""f"{fileName}.csv", "a")
-        f.write("pixelshader," + x.split('.')[0] + "\n")
-        f.close()
-        print(x.split('.')[0])
+        print("image," + x)
         counter = counter + 1
         if counter == len(com):
             sp.Popen([programName, f"{fileName}.csv"])

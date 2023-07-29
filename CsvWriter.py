@@ -23,6 +23,33 @@ for x in os.listdir(targetedPath): # Xmodel
         if counter == len(com):
             sp.Popen([programName, f"{fileName}.csv"])
 
+    elif x.endswith(".xmb"): # Xmodel
+        f = open(""f"{fileName}.csv", "a")
+        f.write("xmodel," + x.split('.')[0] + "\n")
+        f.close()
+        print(x.split('.')[0])
+        counter = counter + 1
+        if counter == len(com):
+            sp.Popen([programName, f"{fileName}.csv"])
+
+    elif x.endswith(".xab"): # Xanim
+        f = open(""f"{fileName}.csv", "a")
+        f.write("xanim," + x.split('.')[0] + "\n")
+        f.close()
+        print(x.split('.')[0])
+        counter = counter + 1
+        if counter == len(com):
+            sp.Popen([programName, f"{fileName}.csv"])
+
+    elif x.endswith(".json"): # sound
+        f = open(""f"{fileName}.csv", "a")
+        f.write("sound," + x.split('.')[0] + "\n")
+        f.close()
+        print(x.split('.')[0])
+        counter = counter + 1
+        if counter == len(com):
+            sp.Popen([programName, f"{fileName}.csv"])
+
     elif x.endswith(".xanim_export"): # Xanim
         f = open(""f"{fileName}.csv", "a")
         f.write("xanim," + x.split('.')[0] + "\n")
@@ -68,14 +95,14 @@ for x in os.listdir(targetedPath): # Xmodel
         if counter == len(com):
             sp.Popen([programName, f"{fileName}.csv"])
     
-    elif x.endswith(".dds"):  # dds
-        f = open(""f"{fileName}.csv", "a")
-        f.write("image,," + x.split('.')[0] + "\n")
-        f.close()
-        print(x.split('.')[0])
-        counter = counter + 1
-        if counter == len(com):
-            sp.Popen([programName, f"{fileName}.csv"])
+    # elif x.endswith(".dds"):  # dds
+    #     f = open(""f"{fileName}.csv", "a")
+    #     f.write("image,," + x.split('.')[0] + "\n")
+    #     f.close()
+    #     print(x.split('.')[0])
+    #     counter = counter + 1
+    #     if counter == len(com):
+    #         sp.Popen([programName, f"{fileName}.csv"])
 
     elif x.endswith(".h1Image"):  # h1Image
         f = open(""f"{fileName}.csv", "a")

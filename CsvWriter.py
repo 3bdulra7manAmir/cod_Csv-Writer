@@ -1,119 +1,63 @@
 import os
-from datetime import datetime
-import time
 import subprocess as sp
 
-targetedPath = input("Go ahead Alpha!: ")
-print("Your Path is : " + targetedPath)
-fileName = input("CSV file name: ")
-print("CSV file name is : " + fileName)
 
-programName = "C:\\Program Files (x86)\\Notepad++\\notepad++.exe"
+class FileHandler:
+    def __init__(self, targeted_path, file_name, program_name):
+        self.targetedPath = targeted_path
+        self.fileName = file_name
+        self.programName = program_name
+        self.counter = 0
+        self.com = os.listdir(targeted_path)
 
-com = os.listdir(targetedPath)
-counter = 0
+    def handle_file(self, x):
+        match x.split('.')[-1]:  # Use file extension to match
+            case "xse":
+                self.write_to_file("xmodelsurfs", x)  # Xmodel_export Models
+            case "xmodel_export":
+                self.write_to_file("xmodel", x)  # Xmodel_export Models
+            case "xsb":
+                self.write_to_file("xmodelsurfs", x)  # XSB           modelsurfs
+            case "xmb":
+                self.write_to_file("xmodel", x)  # XMB           Models
+            case "xab":
+                self.write_to_file("xanim", x)  # XAB           Anims
+            # case "json":
+            #     self.write_to_file("sound", x)       # Json          Materials
+            case "json":
+                self.write_to_file("weapon", x)  # Json          Materials
+            case "iwi":
+                self.write_to_file("image", x)  # IWI           Images
+            case "h1Image":
+                self.write_to_file("image", x)  # H1Image       Images
+            case "flac":
+                self.write_to_file("loaded_sound", x)  # FLAC          Sounds
+            case "flac":  # ERROR
+                self.write_to_file("xanim_export", x)  # Xanim_Export   Anims
+            case _:  # Default case
+                pass
 
-for x in os.listdir(targetedPath): # Xmodel
-    if x.endswith(".xmodel_export"):
-        f = open(""f"{fileName}.csv", "a")
-        f.write("xmodel," + x.split('.')[0] + "\n")
-        f.close()
+    def write_to_file(self, prefix, x):
+        with open(f"{self.fileName}.csv", "a") as f:
+            f.write(f"{prefix},{x.split('.')[0]}\n")
         print(x.split('.')[0])
-        counter = counter + 1
-        if counter == len(com):
-            sp.Popen([programName, f"{fileName}.csv"])
-
-    elif x.endswith(".xmb"): # Xmodel
-        f = open(""f"{fileName}.csv", "a")
-        f.write("xmodel," + x.split('.')[0] + "\n")
-        f.close()
-        print(x.split('.')[0])
-        counter = counter + 1
-        if counter == len(com):
-            sp.Popen([programName, f"{fileName}.csv"])
-
-    elif x.endswith(".xab"): # Xanim
-        f = open(""f"{fileName}.csv", "a")
-        f.write("xanim," + x.split('.')[0] + "\n")
-        f.close()
-        print(x.split('.')[0])
-        counter = counter + 1
-        if counter == len(com):
-            sp.Popen([programName, f"{fileName}.csv"])
-
-    elif x.endswith(".json"): # sound
-        f = open(""f"{fileName}.csv", "a")
-        f.write("sound," + x.split('.')[0] + "\n")
-        f.close()
-        print(x.split('.')[0])
-        counter = counter + 1
-        if counter == len(com):
-            sp.Popen([programName, f"{fileName}.csv"])
-
-    elif x.endswith(".xanim_export"): # Xanim
-        f = open(""f"{fileName}.csv", "a")
-        f.write("xanim," + x.split('.')[0] + "\n")
-        f.close()
-        print(x.split('.')[0])
-        counter = counter + 1
-        if counter == len(com):
-            sp.Popen([programName, f"{fileName}.csv"])
-
-    elif x.endswith(".json"): # mostly WEAPONS files depends on The dir
-        f = open(""f"{fileName}.csv", "a")
-        f.write("weapon," + x.split('.')[0] + "\n")
-        f.close()
-        print(x.split('.')[0])
-        counter = counter + 1
-        if counter == len(com):
-            sp.Popen([programName, f"{fileName}.csv"])
-
-    elif x.startswith("hud_icon"): # WEAPONS_icons Materials
-        f = open(""f"{fileName}.csv", "a")
-        f.write("material," + x.split('.')[0] + "\n")
-        f.close()
-        print(x.split('.')[0])
-        counter = counter + 1
-        if counter == len(com):
-            sp.Popen([programName, f"{fileName}.csv"])
-
-    elif x.endswith(".json"): #  mostly Materials depends on The dir
-        f = open(""f"{fileName}.csv", "a")
-        f.write("material," + x.split('.')[0] + "\n")
-        f.close()
-        print(x.split('.')[0])
-        counter = counter + 1
-        if counter == len(com):
-            sp.Popen([programName, f"{fileName}.csv"])
-
-    elif x.endswith(".iwi"):  # iwi
-        f = open(""f"{fileName}.csv", "a")
-        f.write("image," + x.split('.')[0] + "\n")
-        f.close()
-        print(x.split('.')[0])
-        counter = counter + 1
-        if counter == len(com):
-            sp.Popen([programName, f"{fileName}.csv"])
-    
-    # elif x.endswith(".dds"):  # dds
-    #     f = open(""f"{fileName}.csv", "a")
-    #     f.write("image,," + x.split('.')[0] + "\n")
-    #     f.close()
-    #     print(x.split('.')[0])
-    #     counter = counter + 1
-    #     if counter == len(com):
-    #         sp.Popen([programName, f"{fileName}.csv"])
-
-    elif x.endswith(".h1Image"):  # h1Image
-        f = open(""f"{fileName}.csv", "a")
-        f.write("image," + x.split('.')[0] + "\n")
-        f.close()
-        print("image," + x)
-        counter = counter + 1
-        if counter == len(com):
-            sp.Popen([programName, f"{fileName}.csv"])
+        self.counter += 1
+        if self.counter == len(self.com):
+            sp.Popen([self.programName, f"{self.fileName}.csv"])
 
 
-current_dateTime = datetime.now()
-print("Finished!...")
-time.sleep(3)
+def main():
+    targeted_path = input("Go ahead Alpha!: ")
+    print("Your Path is : " + targeted_path)
+    file_name = "output"
+    print("CSV file name is : " + file_name)
+    program_name = "C:\\Program Files (x86)\\Microsoft VS Code\\Code.exe"
+
+    handler = FileHandler(targeted_path, file_name, program_name)
+
+    for x in os.listdir(targeted_path):
+        handler.handle_file(x)
+
+
+if __name__ == "__main__":
+    main()

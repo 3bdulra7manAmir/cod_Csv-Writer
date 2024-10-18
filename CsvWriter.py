@@ -4,50 +4,50 @@ import subprocess as sp
 
 class FileHandler:
     def __init__(self, targeted_path, file_name, program_name):
-        self.targetedPath = targeted_path
-        self.fileName = file_name
-        self.programName = program_name
+        self.targeted_path = targeted_path
+        self.file_name = file_name
+        self.program_name = program_name
         self.counter = 0
         self.com = os.listdir(targeted_path)
 
-    def handle_file(self, x):
-        match x.split('.')[-1]:  # Use file extension to match
-            case "xse":
-                self.write_to_file("xmodelsurfs", x)  # Xmodel_export Models
-            case "xmodel_export":
-                self.write_to_file("xmodel", x)  # Xmodel_export Models
-            case "xsb":
-                self.write_to_file("xmodelsurfs", x)  # XSB           modelsurfs
-            case "xmb":
-                self.write_to_file("xmodel", x)  # XMB           Models
-            case "xab":
-                self.write_to_file("xanim", x)  # XAB           Anims
-            # case "json":
-            #     self.write_to_file("sound", x)       # Json          Materials
-            case "json":
-                self.write_to_file("weapon", x)  # Json          Materials
-            case "iwi":
-                self.write_to_file("image", x)  # IWI           Images
-            case "h1Image":
-                self.write_to_file("image", x)  # H1Image       Images
-            case "flac":
-                self.write_to_file("loaded_sound", x)  # FLAC          Sounds
-            case "flac":  # ERROR
-                self.write_to_file("xanim_export", x)  # Xanim_Export   Anims
-            case _:  # Default case
-                pass
+    def handle_file(self, file_name):
+        file_extension = file_name.split('.')[-1]
+        prefix_mapping = {
+            "xse": "xmodelsurfs",
+            "xmodel_export": "xmodel",
+            "xsb": "xmodelsurfs",
+            "xmb": "xmodel",
+            "xab": "xanim",
+            "json": "weapon",
+            "iwi": "image",
+            "h1Image": "image",
+            "flac": "loaded_sound",
+            # Add more mappings as needed
+        }
 
-    def write_to_file(self, prefix, x):
-        with open(f"{self.fileName}.csv", "a") as f:
-            f.write(f"{prefix},{x.split('.')[0]}\n")
-        print(x.split('.')[0])
-        self.counter += 1
-        if self.counter == len(self.com):
-            sp.Popen([self.programName, f"{self.fileName}.csv"])
+        prefix = prefix_mapping.get(file_extension)
+        if prefix:
+            self.write_to_file(prefix, file_name)
+
+    def write_to_file(self, prefix, file_name):
+        try:
+            with open(f"{self.file_name}.csv", "a") as f:
+                f.write(f"{prefix},{file_name.split('.')[0]}\n")
+            print(file_name.split('.')[0])
+            self.counter += 1
+
+            if self.counter == len(self.com):
+                sp.Popen([self.program_name, f"{self.file_name}.csv"])
+        except Exception as e:
+            print(f"Error writing to file: {e}")
 
 
 def main():
-    targeted_path = input("Go ahead Alpha!: ")
+    targeted_path = input("Go ahead Alpha!: ").strip()
+    if not os.path.exists(targeted_path):
+        print("Error: The specified path does not exist.")
+        return
+
     print("Your Path is : " + targeted_path)
     file_name = "output"
     print("CSV file name is : " + file_name)
@@ -55,8 +55,11 @@ def main():
 
     handler = FileHandler(targeted_path, file_name, program_name)
 
-    for x in os.listdir(targeted_path):
-        handler.handle_file(x)
+    try:
+        for file_name in os.listdir(targeted_path):
+            handler.handle_file(file_name)
+    except Exception as e:
+        print(f"Error processing files: {e}")
 
 
 if __name__ == "__main__":
